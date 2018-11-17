@@ -1,17 +1,17 @@
 #include "DllExample.h"
 #include <Psapi.h>
 
-__declspec(dllexport) INT64 Min(INT64 iX, INT64 iY)
+__declspec(dllexport) INT64 __stdcall Min(INT64 iX, INT64 iY)
 {
 	return iX < iY ? iX : iY;
 }
 
-__declspec(dllexport) INT64 Max(INT64 iX, INT64 iY)
+__declspec(dllexport) INT64 __stdcall Max(INT64 iX, INT64 iY)
 {
 	return iX < iY ? iY : iX;
 }
 
-__declspec(dllexport) LPSTR GetCurrentProcessName()
+__declspec(dllexport) LPSTR __stdcall GetCurrentProcessName()
 {
 	const WORD wNameLength = MAX_PATH + 1;
 	HANDLE hCurrentProcess = GetCurrentProcess();
