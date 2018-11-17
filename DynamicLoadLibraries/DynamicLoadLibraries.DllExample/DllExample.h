@@ -2,6 +2,6 @@
 
 #include <Windows.h>
 
-__declspec(dllexport) int Min(int x, int y);
-__declspec(dllexport) int Max(int x, int y);
+__declspec(dllexport) INT64 Min(INT64 iX, INT64 iY);
+__declspec(dllexport) INT64 Max(INT64 iX, INT64 iY);
 __declspec(dllexport) LPTSTR GetCurrentProcessName();
