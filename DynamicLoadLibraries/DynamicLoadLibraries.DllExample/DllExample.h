@@ -4,4 +4,4 @@
 
 __declspec(dllexport) INT64 Min(INT64 iX, INT64 iY);
 __declspec(dllexport) INT64 Max(INT64 iX, INT64 iY);
-__declspec(dllexport) LPTSTR GetCurrentProcessName();
+__declspec(dllexport) LPSTR GetCurrentProcessName();
