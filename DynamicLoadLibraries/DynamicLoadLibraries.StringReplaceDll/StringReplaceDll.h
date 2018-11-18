@@ -2,4 +2,4 @@
 
 #include <Windows.h>
 
-__declspec(dllexport) UINT64 ReplaceString(LPCTSTR lpsToReplace, LPCTSTR lpsNewString);
+__declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewString);

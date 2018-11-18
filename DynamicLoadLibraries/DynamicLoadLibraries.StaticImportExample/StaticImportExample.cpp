@@ -1,11 +1,14 @@
 #include <Windows.h>
 #include <stdio.h>
 
-__declspec(dllimport) INT64 Min(INT64 iX, INT64 iY);
+extern "C"
+{
+	__declspec(dllimport) INT64 __stdcall Min(INT64 iX, INT64 iY);
 
-__declspec(dllimport) INT64 Max(INT64 iX, INT64 iY);
+	__declspec(dllimport) INT64 __stdcall Max(INT64 iX, INT64 iY);
 
-__declspec(dllimport) LPSTR GetCurrentProcessName();
+	__declspec(dllimport) LPSTR __stdcall GetCurrentProcessName();
+}
 
 int main()
 {

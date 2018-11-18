@@ -16,7 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StringReplaceDll.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="StringReplaceDll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
