@@ -18,7 +18,7 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 
 	MEMORY_BASIC_INFORMATION mbiPageInfo;
 	BOOL bIsStringFound, bShouldWritePage;
-	UINT64 iReplacedCount = 0;
+	INT64 iReplacedCount = 0;
 
 	for (LPVOID lpPageAddress = siSystemInfo.lpMinimumApplicationAddress; lpPageAddress < siSystemInfo.lpMaximumApplicationAddress; lpPageAddress = (LPVOID)((ULONGLONG)lpPageAddress + siSystemInfo.dwPageSize))
 	{
@@ -58,7 +58,6 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 	}
 
 	free(pcPage);
-
 	return iReplacedCount;
 }
 
