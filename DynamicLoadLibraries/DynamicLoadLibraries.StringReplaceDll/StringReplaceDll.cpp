@@ -14,11 +14,11 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 	GetSystemInfo(&siSystemInfo);
 
 	CHAR *pcPage = (CHAR *)calloc(siSystemInfo.dwPageSize, sizeof(CHAR));
-	size_t sLastPageSymbol = (size_t)siSystemInfo.dwPageSize - iReplacementLength;
+	DWORD dwLastPageSymbol = siSystemInfo.dwPageSize - iReplacementLength;
 
 	MEMORY_BASIC_INFORMATION mbiPageInfo;
 	BOOL bIsStringFound, bShouldWritePage;
-	UINT64 iWrittenCount = 0;
+	UINT64 iReplacedCount = 0;
 
 	for (LPVOID lpPageAddress = siSystemInfo.lpMinimumApplicationAddress; lpPageAddress < siSystemInfo.lpMaximumApplicationAddress; lpPageAddress = (LPVOID)((ULONGLONG)lpPageAddress + siSystemInfo.dwPageSize))
 	{
@@ -30,21 +30,21 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 			{
 				bShouldWritePage = FALSE;
 
-				for (size_t sCurPageChar = 0; sCurPageChar < sLastPageSymbol; ++sCurPageChar)
+				for (DWORD dwCurPageChar = 0; dwCurPageChar < dwLastPageSymbol; ++dwCurPageChar)
 				{
 					bIsStringFound = TRUE;
-					for (int sCurStrChar = 0; (sCurStrChar < iReplacementLength) && bIsStringFound; ++sCurStrChar)
+					for (int iCurStrChar = 0; (iCurStrChar < iReplacementLength) && bIsStringFound; ++iCurStrChar)
 					{
-						bIsStringFound = pcPage[sCurPageChar + sCurStrChar] == lpsToReplace[sCurStrChar];
+						bIsStringFound = pcPage[dwCurPageChar + iCurStrChar] == lpsToReplace[iCurStrChar];
 					}
 
 					if (bIsStringFound)
 					{
 						for (int sCurStrChar = 0; sCurStrChar < iReplacementLength; ++sCurStrChar)
 						{
-							pcPage[sCurPageChar + sCurStrChar] = lpsNewString[sCurStrChar];
+							pcPage[dwCurPageChar + sCurStrChar] = lpsNewString[sCurStrChar];
 						}
-						++iWrittenCount;
+						++iReplacedCount;
 						bShouldWritePage = TRUE;
 					}
 				}
@@ -59,10 +59,10 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 
 	free(pcPage);
 
-	return iWrittenCount;
+	return iReplacedCount;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
 	return TRUE;
 }
