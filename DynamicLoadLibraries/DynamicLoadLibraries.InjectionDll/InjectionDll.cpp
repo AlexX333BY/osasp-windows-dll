@@ -5,7 +5,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReser
 {
 	if (ul_reason_for_call == DLL_PROCESS_ATTACH)
 	{
-		ReplaceString("would be replaced soon", "finally replaced     ");
+		ReplaceString("will be", "is now ");
 	}
 	return TRUE;
 }

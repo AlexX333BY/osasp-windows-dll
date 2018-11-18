@@ -2,15 +2,15 @@
 #include <string>
 #include <iostream>
 
-std::string psReplacement = "will be replaced soon";
+std::string psReplacement = "this will be partly replaced";
 
 int main()
 {
-	const DWORD dwSleepTime = 1000;
-
 	while (TRUE)
 	{
 		std::cout << psReplacement << std::endl;
-		Sleep(dwSleepTime);
+		Sleep(1000);
 	}
+
+	return 0;
 }
