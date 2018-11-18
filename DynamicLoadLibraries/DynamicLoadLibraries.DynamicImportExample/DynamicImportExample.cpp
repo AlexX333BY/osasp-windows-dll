@@ -7,28 +7,6 @@ typedef INT64(__stdcall Max_ptr)(INT64 x, INT64 y);
 
 typedef LPSTR(__stdcall GetCurrentProcessName_ptr)();
 
-LPCSTR GetFullFunctionName(LPCSTR lpsFunctionName, INT64 iArgumentsSize)
-{
-	INT64 iNameLength = (INT64)lstrlen(lpsFunctionName) + 2;
-	INT64 iSizeCounter = iArgumentsSize;
-	do
-	{
-		iSizeCounter /= 10;
-		++iNameLength;
-	} while (iSizeCounter > 0);
-
-	LPSTR result = new CHAR[iNameLength + 1];
-	if (sprintf_s(result, iNameLength + 1, "_%s@%I64d", lpsFunctionName, iArgumentsSize) == -1)
-	{
-		delete[] result;
-		return NULL;
-	}
-	else
-	{
-		return result;
-	}
-}
-
 int main()
 {
 	LPCTSTR lpsDllPath = "DynamicLoadLibraries.DllExample.dll";
@@ -40,21 +18,9 @@ int main()
 	}
 	else
 	{
-		LPCTSTR lpsMinName = "Min";
-		LPCTSTR lpsMaxName = "Max";
-		LPCTSTR lpsGetCurrentProcessName = "GetCurrentProcessName";
-
-		LPCTSTR lpsMinFullName = GetFullFunctionName(lpsMinName, 2 * sizeof(INT64));
-		LPCTSTR lpsMaxFullName = GetFullFunctionName(lpsMaxName, 2 * sizeof(INT64));
-		LPCTSTR lpsFullGetCurrentProcessName = GetFullFunctionName(lpsGetCurrentProcessName, 0);
-
-		Min_ptr *lpMin = (Min_ptr *)GetProcAddress(hLoadedDll, lpsMinFullName);
-		Max_ptr *lpMax = (Max_ptr *)GetProcAddress(hLoadedDll, lpsMaxFullName);
-		GetCurrentProcessName_ptr *lpGetCurrentProcessName = (GetCurrentProcessName_ptr *)GetProcAddress(hLoadedDll, lpsFullGetCurrentProcessName);
-
-		delete[] lpsMinFullName;
-		delete[] lpsMaxFullName;
-		delete[] lpsFullGetCurrentProcessName;
+		Min_ptr *lpMin = (Min_ptr *)GetProcAddress(hLoadedDll, "Min");
+		Max_ptr *lpMax = (Max_ptr *)GetProcAddress(hLoadedDll, "Max");
+		GetCurrentProcessName_ptr *lpGetCurrentProcessName = (GetCurrentProcessName_ptr *)GetProcAddress(hLoadedDll, "GetCurrentProcessName");
 
 		if ((lpMin == NULL) || (lpMax == NULL))
 		{
