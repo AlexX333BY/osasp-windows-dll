@@ -41,7 +41,7 @@ int main()
 	else
 	{
 		LPCSTR lpsMinDecorated = GetFullFunctionName("Min", 2 * sizeof(INT64));
-		LPCSTR lpsMaxDecorated = GetFullFunctionName("Min", 2 * sizeof(INT64));
+		LPCSTR lpsMaxDecorated = GetFullFunctionName("Max", 2 * sizeof(INT64));
 		LPCSTR lpsGetCurrentProcessNameDecorated = GetFullFunctionName("GetCurrentProcessName", 0);
 
 		Min_ptr *lpMin = (Min_ptr *)GetProcAddress(hLoadedDll, lpsMinDecorated);
