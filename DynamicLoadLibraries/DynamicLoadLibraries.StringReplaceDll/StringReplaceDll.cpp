@@ -24,7 +24,7 @@ __declspec(dllexport) INT64 ReplaceString(LPCSTR lpsToReplace, LPCSTR lpsNewStri
 	{
 		VirtualQuery(lpPageAddress, &mbiPageInfo, sizeof(MEMORY_BASIC_INFORMATION));
 
-		if ((mbiPageInfo.State == MEM_COMMIT) && (mbiPageInfo.Protect | PAGE_READWRITE))
+		if ((mbiPageInfo.State == MEM_COMMIT) && (mbiPageInfo.Protect & PAGE_READWRITE))
 		{
 			if (ReadProcessMemory(hCurrentProcess, lpPageAddress, pcPage, siSystemInfo.dwPageSize, NULL))
 			{
